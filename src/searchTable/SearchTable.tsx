@@ -1,5 +1,5 @@
 import { Table } from 'antd';
-import { ColumnsType, TableProps } from 'antd/lib/table';
+import { ColumnsType, ColumnType, TableProps } from 'antd/lib/table';
 import React, { Component, ReactNode } from 'react';
 import IComponentProps from '../interfaces/IComponentProps';
 const { Column } = Table;
@@ -36,7 +36,7 @@ interface ISearchTableState<T> {
   selectedRowKeys?: any[];
   selectedRows?: T[];
   loading: boolean;
-  newColumns: any[];
+  newColumns: ColumnType<T>[];
   /**
    * 搜索参数
    */
@@ -228,7 +228,6 @@ class SearchTable<T extends object = any> extends Component<
       style,
       tableStyle,
       tableProps,
-      columns,
       renderExtra,
       rowKey,
       disableAutoHidePage,
@@ -297,8 +296,9 @@ class SearchTable<T extends object = any> extends Component<
               : undefined
           }
         >
-          {newColumns.map(item => (
-            <Column
+          {newColumns.map((item, index) => (
+            <Column<T>
+              key={index}
               title={
                 dragEnable ? (
                   <div
@@ -323,9 +323,10 @@ class SearchTable<T extends object = any> extends Component<
                 )
               }
               dataIndex={item.dataIndex}
-              render={(value, record) =>
-                item.render ? item.render(value, record) : <span>{value}</span>
+              render={(value, record, index) =>
+                item.render ? item.render(value, record, index) : <span>{value}</span>
               }
+              {...item}
             />
           ))}
         </Table>
