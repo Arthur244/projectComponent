@@ -1,0 +1,62 @@
+{
+  "name": "fb-project-component",
+  "version": "0.1.11",
+  "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "build": "father-build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "release": "npm run build && npm publish",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "publicNpm": "npm run build && npm login && npm version patch && npm publish",
+    "public": "npm run deploy && npm run publicNpm"
+  },
+  "authors": {
+    "name": "xujunjie",
+    "email": "yinhunfeixue@163.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yinhunfeixue/projectComponent.git"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "resolutions": {
+    "@types/react": "^16.14.2"
+  },
+  "dependencies": {
+    "antd": "^4.2.1",
+    "idcard": "^4.1.0",
+    "react": "^16.12.0",
+    "react-zmage": "^0.8.5-beta.36"
+  },
+  "devDependencies": {
+    "@types/react": "^16.14.2",
+    "@umijs/test": "^3.0.5",
+    "dumi": "^1.0.13",
+    "father-build": "^1.17.2",
+    "gh-pages": "^3.0.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "yorkie": "^2.0.0"
+  }
+}
